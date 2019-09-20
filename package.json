@@ -10,9 +10,9 @@
     "BuckleScript"
   ],
   "license": "MIT",
-  "peerDependencies": {
+  "devDependencies": {
     "bs-platform": "^5.0.6",
-    "bs-webapi": "git+https://github.com/viskahq/bs-webapi-incubator.git"
+    "bs-webapi": "^0.15.4"
   },
   "dependencies": {
     "firebase": "^4.4.0"
