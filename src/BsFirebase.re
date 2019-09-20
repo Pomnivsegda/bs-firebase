@@ -1,4 +1,4 @@
-open BsWebapi.Webapi.Dom;
+open Webapi.Dom;
 
 module Error = {
   type t('e) = Js.t('e);
@@ -11,7 +11,7 @@ module Database = {
     [@bs.get] external key : t => Js.nullable(string) = "";
     [@bs.get] external parent : t => Js.nullable(t) = "";
     [@bs.get] external root : t => t = "";
-    [@bs.send] external child : (t, ~path: string) => t = "";
+    [@bs.send] external child : (t, ~path: string) => t = "child";
     [@bs.send]
     external once :
       (t, ~eventType: string, ~successCallback: DataSnapshot.t => unit=?, unit) =>
@@ -31,25 +31,25 @@ module Database = {
       "";
     [@bs.send]
     external off : (t, ~eventType: string, ~callback: DataSnapshot.t => unit=?, unit) => unit =
-      "";
+      "off";
     [@bs.send]
     external set :
       (t, ~value: 'a, ~onComplete: Js.nullable(Error.t('e)) => unit=?, unit) => Js.Promise.t(unit) =
-      "";
+      "set";
     [@bs.send]
     external update :
       (t, ~value: 'a, ~onComplete: Js.nullable(Error.t('e)) => unit=?, unit) => Js.Promise.t(unit) =
-      "";
+      "update";
     [@bs.send]
     external push : (t, ~value: 'a=?, ~onComplete: Js.nullable(Error.t('e)) => unit=?, unit) => t =
-      "";
+      "push";
   } = Reference
   and DataSnapshot: {
     type t;
     [@bs.get] external key : t => Js.null(string) = "";
     [@bs.get] external ref : t => Reference.t = "";
-    [@bs.send] external child : (t, ~path: string) => t = "";
-    [@bs.send] external exists : t => bool = "";
+    [@bs.send] external child : (t, ~path: string) => t = "child";
+    [@bs.send] external exists : t => bool = "exists";
     [@bs.send] external exportVal : t => Js.Json.t = "exportVal";
     [@bs.send] external foreach : (t, t => bool) => bool = "forEach";
     /*external getPriority*/
@@ -63,19 +63,19 @@ module Database = {
     type t;
     [@bs.send]
     external cancel : (t, ~onComplete: Js.nullable(Error.t('e)) => unit=?) => Js.Promise.t(unit) =
-      "";
+      "cancel";
     [@bs.send]
     external remove : (t, ~onComplete: Js.nullable(Error.t('e)) => unit=?) => Js.Promise.t(unit) =
-      "";
+      "remove";
     [@bs.send]
     external set :
       (t, Js.Json.t, ~onComplete: Js.nullable(Error.t('e)) => unit=?) => Js.Promise.t(unit) =
-      "";
+      "set";
     /*external setWithPriority*/
     [@bs.send]
     external update :
       (t, Js.Json.t, ~onComplete: Js.nullable(Error.t('e)) => unit=?) => Js.Promise.t(unit) =
-      "";
+      "update";
   };
   module ThenableReference = {
     type t;
@@ -86,7 +86,7 @@ module Database = {
   /*external app : t => App.t = "" [@@bs.get];*/
   [@bs.send] external goOffline : t => unit = "goOffline";
   [@bs.send] external goOnline : t => unit = "goOnline";
-  [@bs.send] external ref : (t, ~path: string=?, unit) => Reference.t = "";
+  [@bs.send] external ref : (t, ~path: string=?, unit) => Reference.t = "ref";
   [@bs.scope ("database", "ServerValue")] [@bs.val] [@bs.module "firebase"]
   external serverTimestamp : Js.null(string) =
     "TIMESTAMP";
@@ -106,15 +106,15 @@ module Storage = {
     [@bs.get] external parent : t => option(t) = "";
     [@bs.get] external root : t => t = "";
     /*external storage : t => Storage.t = "" [@@bs.get];*/
-    [@bs.send] external path : (t, ~path: string) => t = "";
+    [@bs.send] external path : (t, ~path: string) => t = "path";
     [@bs.send]
     external put :
-      (t, ~data: Window.File.t, ~metadata: Js.t('a)=?, unit) => Js.Promise.t(UploadTask.t) =
-      "";
-    [@bs.send] external delete : t => Js.Promise.t(unit) = "";
-    [@bs.send] external getDownloadURL : t => Js.Promise.t(string) = "";
+      (t, ~data: Webapi.File.t, ~metadata: Js.t('a)=?, unit) => Js.Promise.t(UploadTask.t) =
+      "put";
+    [@bs.send] external delete : t => Js.Promise.t(unit) = "delete";
+    [@bs.send] external getDownloadURL : t => Js.Promise.t(string) = "getDownloadURL";
   };
-  [@bs.send] external ref : (t, ~path: string=?, unit) => Reference.t = "";
+  [@bs.send] external ref : (t, ~path: string=?, unit) => Reference.t = "ref";
 };
 
 module Auth = {
@@ -131,7 +131,7 @@ module Auth = {
     [@bs.get] external uid : t => string = "uid";
     [@bs.send] external updateProfile : (t, ~profile: profile) => Js.Promise.t(unit) =
       "updateProfile";
-    [@bs.send] external getIdToken : t => Js.Promise.t(Js.nullable(string)) = "";
+    [@bs.send] external getIdToken : t => Js.Promise.t(Js.nullable(string)) = "getIdToken";
   };
   module Error = {
     type t;
