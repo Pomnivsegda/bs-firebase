@@ -15,7 +15,7 @@
     "bs-webapi": "^0.15.4"
   },
   "dependencies": {
-    "firebase": "^4.4.0"
+    "firebase": "^6.6.2"
   },
   "repository": "git@github.com:viskahq/bs-firebase.git",
   "author": ""
